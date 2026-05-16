@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía Completa de Trading —</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05090f;
+    --surface: #0b1119;
+    --card: #0f1822;
+    --border: #1a2840;
+    --green: #00e87a;
+    --green-dim: #00a854;
+    --green-glow: rgba(0,232,122,0.12);
+    --blue: #1a7cff;
+    --red: #ff4b4b;
+    --gold: #f5c842;
+    --text: #e8f0fe;
+    --muted: #6b8099;
+    --accent: #00e87a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,232,122,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,232,122,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 60px 40px 40px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(0,232,122,0.06) 0%, transparent 100%);
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--green-glow);
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: #fff;
+  }
+
+  h1 span { color: var(--green); }
+
+  .subtitle {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 13px;
+    max-width: 600px;
+  }
+
+  /* NAV PILLS */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(5,9,15,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 40px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+
+  .pill {
+    white-space: nowrap;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all .2s;
+    text-decoration: none;
+  }
+  .pill:hover, .pill.active {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--green-glow);
+  }
+
+  /* MAIN LAYOUT */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  /* SECTION */
+  section {
+    padding-top: 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-icon {
+    width: 40px; height: 40px;
+    background: var(--green-glow);
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* TERM CARDS GRID */
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .term-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .term-card:hover {
+    border-color: var(--green-dim);
+    transform: translateY(-2px);
+  }
+  .term-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--green), transparent);
+  }
+
+  .term-abbr {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--green);
+    letter-spacing: -1px;
+  }
+
+  .term-full {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    margin-top: 2px;
+  }
+
+  .term-desc {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .term-examples {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ex-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(26,120,255,0.1);
+    border: 1px solid rgba(26,120,255,0.3);
+    color: #6ab0ff;
+  }
+  .ex-tag.green {
+    background: rgba(0,232,122,0.08);
+    border-color: rgba(0,232,122,0.25);
+    color: var(--green);
+  }
+  .ex-tag.red {
+    background: rgba(255,75,75,0.08);
+    border-color: rgba(255,75,75,0.25);
+    color: #ff7c7c;
+  }
+
+  /* PILLAR CARDS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 700px) {
+    .pillars { grid-template-columns: 1fr; }
+    .terms-grid { grid-template-columns: 1fr; }
+    main { padding: 0 20px 60px; }
+    header { padding: 40px 20px 30px; }
+    .nav { padding: 10px 20px; }
+  }
+
+  .pillar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+  }
+  .pillar-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+  }
+
+  .pillar-num {
+    width: 44px; height: 44px;
+    background: var(--green);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .pillar-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .pillar-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* STRATEGY FLOW */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-step {
+    display: flex;
+    gap: 20px;
+    position: relative;
+  }
+
+  .flow-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 44px;
+    flex-shrink: 0;
+  }
+
+  .flow-dot {
+    width: 44px; height: 44px;
+    background: var(--card);
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--green);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .flow-line {
+    flex: 1;
+    width: 2px;
+    background: linear-gradient(180deg, var(--green-dim), var(--border));
+    margin: 4px 0;
+  }
+
+  .flow-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    flex: 1;
+    transition: border-color .2s;
+  }
+  .flow-content:hover { border-color: var(--green-dim); }
+
+  .flow-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  .flow-desc {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .flow-tip {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* RULES */
+  .rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .rule-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color .2s;
+  }
+  .rule-item:hover { border-color: var(--green-dim); }
+
+  .rule-num {
+    width: 28px; height: 28px;
+    background: var(--green);
+    color: #000;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: .85rem;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .rule-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .rule-text strong { color: var(--green); font-weight: 500; }
+
+  /* CANDLE VISUAL */
+  .candle-visual {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .candle-wrap {
+    text-align: center;
+  }
+
+  .candle-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  svg.candle { display: block; margin: 0 auto; }
+
+  .candle-parts {
+    margin-top: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .cp-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .cp-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* TIMEFRAME TABLE */
+  .tf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .tf-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tf-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .tf-table tr:last-child td { border-bottom: none; }
+  .tf-table tr:hover td { background: var(--surface); }
+
+  .tf-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .tf-badge.htf { background: rgba(26,120,255,0.15); color: #6ab0ff; border: 1px solid rgba(26,120,255,0.3); }
+  .tf-badge.ltf { background: rgba(0,232,122,0.1); color: var(--green); border: 1px solid rgba(0,232,122,0.25); }
+
+  /* GLOSARIO EXTRA */
+  .glos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .glos-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color .2s;
+  }
+  .glos-card:hover { border-color: var(--green-dim); }
+
+  .glos-term {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    color: var(--green);
+    margin-bottom: 6px;
+  }
+
+  .glos-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 60px 0 0;
+  }
+
+  /* QUOTE */
+  .quote-block {
+    background: var(--green-glow);
+    border-left: 3px solid var(--green);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin: 32px 0;
+  }
+
+  .quote-text {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #fff;
+    line-height: 1.7;
+  }
+
+  .quote-author {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  /* CONSISTENCY STEPS */
+  .consist-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .consist-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all .2s;
+  }
+  .consist-card:hover { border-color: var(--green-dim); transform: translateY(-2px); }
+
+  .consist-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .consist-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .9rem;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .consist-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* SCROLL REVEAL */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section { animation: fadeUp .5s ease both; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">📈 Scalping </div>
+  <h1>Guía Completa<br><span>de Terminología</span><br>y Estrategias</h1>
+  <p class="subtitle">Todo lo que necesitás saber: desde los pilares del trading hasta las entradas exactas con liquidez externa e interna.</p>
+</header>
+
+<nav class="nav">
+  <a href="#pilares" class="pill active">Pilares</a>
+  <a href="#terminologia" class="pill">Terminología HTF/LTF</a>
+  <a href="#velas" class="pill">Velas Japonesas</a>
+  <a href="#liquidez" class="pill">Liquidez</a>
+  <a href="#estrategia" class="pill">Estrategia Paso a Paso</a>
+  <a href="#reglas" class="pill">5 Reglas</a>
+  <a href="#consistencia" class="pill">Consistencia</a>
+  <a href="#glosario" class="pill">Glosario Completo</a>
+</nav>
+
+<main>
+
+  <!-- PILARES -->
+  <section id="pilares">
+    <div class="section-header">
+      <div class="section-icon">🏛️</div>
+      <h2>Los 3 Pilares del Trading</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar-card">
+        <div class="pillar-num">1</div>
+        <div class="pillar-title">MÉTODO</div>
+        <div class="pillar-desc">Sistema de análisis repetible para identificar oportunidades de alta probabilidad. Incluye la lectura de liquidez, estructura del precio y confluencias en múltiples temporalidades.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">2</div>
+        <div class="pillar-title">GESTIÓN DE CAPITAL</div>
+        <div class="pillar-desc">Control del riesgo por operación (generalmente 1-2% del capital). Sin gestión de capital, ninguna estrategia sobrevive a largo plazo. El 90% de los traders pierde por ignorar este pilar.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">3</div>
+        <div class="pillar-title">CONTROL EMOCIONAL</div>
+        <div class="pillar-desc">Gestión de las emociones al operar: miedo a perder, codicia, revenge trading. El mercado amplifica tus debilidades psicológicas. Tu mente es el activo más importante.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TERMINOLOGÍA HTF / LTF -->
+  <section id="terminologia">
+    <div class="section-header">
+      <div class="section-icon">⏱️</div>
+      <h2>Terminología: Marcos Temporales</h2>
+    </div>
+    <div class="terms-grid">
+      <div class="term-card">
+        <div class="term-abbr">HTF</div>
+        <div class="term-full">Higher Time Frame — Marco de Temporalidad Alta</div>
+        <div class="term-desc">Temporalidades grandes usadas para identificar la tendencia principal, zonas de liquidez mayor y el sesgo direccional del mercado. Aquí se define el CONTEXTO y el OBJETIVO del precio.</div>
+        <div class="term-examples">
+          <span class="ex-tag green">D1 — Diario</span>
+          <span class="ex-tag green">H4 — 4 Horas</span>
+          <span class="ex-tag green">H1 — 1 Hora</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">LTF</div>
+        <div class="term-full">Lower Time Frame — Marco de Temporalidad Baja</div>
+        <div class="term-desc">Temporalidades pequeñas usadas para encontrar la CONFIRMACIÓN y el PUNTO EXACTO de entrada, una vez que el precio llegó a la zona identificada en HTF. Reduce el riesgo al precisar la entrada.</div>
+        <div class="term-examples">
+          <span class="ex-tag">m15 — 15 Min</span>
+          <span class="ex-tag">m5 — 5 Min</span>
+          <span class="ex-tag">m2 — 2 Min</span>
+          <span class="ex-tag">m1 — 1 Min</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">PDH</div>
+        <div class="term-full">Previous Day High — Máximo del Día Previo</div>
+        <div class="term-desc">El precio más alto alcanzado en la vela diaria del día anterior. Es una zona de liquidez externa clave porque muchos traders colocan sus stops y órdenes por encima de ese nivel. Si el mercado lo supera con cuerpo de vela, confirma sesgo alcista y ese PDH se convierte en objetivo de la siguiente vela.</div>
+        <div class="term-examples">
+          <span class="ex-tag green">Objetivo de compra</span>
+          <span class="ex-tag red">Stop loss de ventas</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">PDL</div>
+        <div class="term-full">Previous Day Low — Mínimo del Día Previo</div>
+        <div class="term-desc">El precio más bajo de la vela diaria anterior. Zona de liquidez externa donde se acumulan stops de posiciones largas. Si el precio lo perfora, activa stops en cadena y puede iniciar un movimiento bajista o convertirse en zona de compra tras un barrido (sweep).</div>
+        <div class="term-examples">
+          <span class="ex-tag red">Objetivo de venta</span>
+          <span class="ex-tag green">Zona de compra post-sweep</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">FVG</div>
+        <div class="term-full">Fair Value Gap — Brecha de Valor Justo</div>
+        <div class="term-desc">Desequilibrio del mercado causado por un movimiento impulsivo de 3 velas. La zona entre el máximo de la vela 1 y el mínimo de la vela 3 queda sin cubrir (gap de eficiencia). El precio tiende a volver a rellenar esa zona antes de continuar la tendencia. Es una forma de liquidez interna. En compras, buscar FVG alcistas; en ventas, FVG bajistas.</div>
+        <div class="term-examples">
+          <span class="ex-tag green">Confluencia de entrada</span>
+          <span class="ex-tag">Imbalance / Desequilibrio</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">CHoCH</div>
+        <div class="term-full">Change of Character — Cambio de Carácter</div>
+        <div class="term-desc">Primer indicio de reversión de tendencia en LTF. El precio rompe la estructura previa por primera vez. No es una confirmación definitiva de cambio, pero señala que la presión opuesta está entrando. Se usa como alerta temprana para buscar entradas con mayor confirmación.</div>
+        <div class="term-examples">
+          <span class="ex-tag">Señal de alerta</span>
+          <span class="ex-tag">Posible reversión</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">BOS</div>
+        <div class="term-full">Break of Structure — Ruptura de Estructura</div>
+        <div class="term-desc">Confirmación de que la tendencia cambió. Ocurre cuando el precio rompe con cuerpo un máximo previo (en tendencia alcista) o un mínimo previo (en tendencia bajista). Diferencia del CHoCH: el BOS confirma la continuación o el nuevo sesgo, mientras que el CHoCH solo lo insinúa.</div>
+        <div class="term-examples">
+          <span class="ex-tag green">Confirmación alcista</span>
+          <span class="ex-tag red">Confirmación bajista</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">SL / TP</div>
+        <div class="term-full">Stop Loss / Take Profit</div>
+        <div class="term-desc"><strong style="color:var(--red)">Stop Loss:</strong> Orden automática que cierra tu posición en pérdida controlada si el precio va en tu contra. Siempre debe colocarse ANTES de entrar. <strong style="color:var(--green)">Take Profit:</strong> Nivel de precio donde se cierra la posición con ganancia, generalmente en la siguiente zona de liquidez.</div>
+        <div class="term-examples">
+          <span class="ex-tag red">SL — Protección del capital</span>
+          <span class="ex-tag green">TP — Objetivo de ganancia</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">R:B</div>
+        <div class="term-full">Risk/Benefit — Relación Riesgo/Beneficio</div>
+        <div class="term-desc">Cuánto ganas por cada peso que arriesgás. Una operación 1:2 significa que si arriesgás $100, tu objetivo de ganancia son $200. Con un R:B de 1:2 ó 1:3, podés ser rentable ganando solo el 40-50% de tus operaciones. Nunca operar con menos de 1:1.5.</div>
+        <div class="term-examples">
+          <span class="ex-tag green">1:2 — Óptimo</span>
+          <span class="ex-tag green">1:3 — Excelente</span>
+          <span class="ex-tag red">1:0.5 — Evitar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VELAS JAPONESAS -->
+  <section id="velas">
+    <div class="section-header">
+      <div class="section-icon">🕯️</div>
+      <h2>Velas Japonesas</h2>
+    </div>
+    <div class="candle-visual">
+      <div class="candle-wrap">
+        <div class="candle-label" style="color:var(--green)">Vela Alcista (Bullish)</div>
+        <svg class="candle" width="60" height="180" viewBox="0 0 60 180">
+          <!-- mecha superior -->
+          <line x1="30" y1="10" x2="30" y2="40" stroke="#00e87a" stroke-width="2"/>
+          <!-- cuerpo -->
+          <rect x="14" y="40" width="32" height="100" fill="#00e87a" rx="2"/>
+          <!-- mecha inferior -->
+          <line x1="30" y1="140" x2="30" y2="170" stroke="#00e87a" stroke-width="2"/>
+          <!-- labels -->
+          <text x="48" y="14" fill="#6b8099" font-size="9" font-family="DM Mono">MAX</text>
+          <text x="48" y="44" fill="#6b8099" font-size="9" font-family="DM Mono">CIERRE</text>
+          <text x="48" y="143" fill="#6b8099" font-size="9" font-family="DM Mono">APERTURA</text>
+          <text x="48" y="174" fill="#6b8099" font-size="9" font-family="DM Mono">MIN</text>
+        </svg>
+        <div class="candle-parts">
+          <div class="cp-row"><div class="cp-dot" style="background:#00e87a"></div>Cierre > Apertura</div>
+          <div class="cp-row"><div class="cp-dot" style="background:#00e87a"></div>Presión compradora</div>
+        </div>
+      </div>
+      <div class="candle-wrap">
+        <div class="candle-label" style="color:var(--red)">Vela Bajista (Bearish)</div>
+        <svg class="candle" width="60" height="180" viewBox="0 0 60 180">
+          <line x1="30" y1="10" x2="30" y2="40" stroke="#ff4b4b" stroke-width="2"/>
+          <rect x="14" y="40" width="32" height="100" fill="#ff4b4b" rx="2"/>
+          <line x1="30" y1="140" x2="30" y2="170" stroke="#ff4b4b" stroke-width="2"/>
+          <text x="48" y="14" fill="#6b8099" font-size="9" font-family="DM Mono">MAX</text>
+          <text x="48" y="44" fill="#6b8099" font-size="9" font-family="DM Mono">APERTURA</text>
+          <text x="48" y="143" fill="#6b8099" font-size="9" font-family="DM Mono">CIERRE</text>
+          <text x="48" y="174" fill="#6b8099" font-size="9" font-family="DM Mono">MIN</text>
+        </svg>
+        <div class="candle-parts">
+          <div class="cp-row"><div class="cp-dot" style="background:#ff4b4b"></div>Cierre &lt; Apertura</div>
+          <div class="cp-row"><div class="cp-dot" style="background:#ff4b4b"></div>Presión vendedora</div>
+        </div>
+      </div>
+      <div style="max-width:300px">
+        <div class="glos-term" style="font-size:1rem; margin-bottom:12px;">¿Qué información contiene cada vela?</div>
+        <div class="rules-list">
+          <div class="rule-item" style="padding:12px 16px;">
+            <div class="rule-num" style="background:var(--green);font-size:.75rem">MAX</div>
+            <div class="rule-text"><strong>Máximo (High):</strong> precio más alto alcanzado en ese período de tiempo. Marca la zona de liquidez superior.</div>
+          </div>
+          <div class="rule-item" style="padding:12px 16px;">
+            <div class="rule-num" style="background:var(--green);font-size:.75rem">MIN</div>
+            <div class="rule-text"><strong>Mínimo (Low):</strong> precio más bajo alcanzado. Marca la zona de liquidez inferior.</div>
+          </div>
+          <div class="rule-item" style="padding:12px 16px;">
+            <div class="rule-num" style="background:var(--blue);font-size:.7rem">APE</div>
+            <div class="rule-text"><strong>Apertura:</strong> precio al inicio del período. En alcista es el fondo del cuerpo; en bajista, la parte superior.</div>
+          </div>
+          <div class="rule-item" style="padding:12px 16px;">
+            <div class="rule-num" style="background:var(--blue);font-size:.65rem">CIE</div>
+            <div class="rule-text"><strong>Cierre:</strong> precio al final del período. Determina el color y la dirección de la vela.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de marcos temporales -->
+    <div style="margin-top:28px; background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden;">
+      <table class="tf-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Temporalidad</th>
+            <th>Uso Principal</th>
+            <th>¿Qué buscás?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tf-badge htf">HTF</span></td>
+            <td>D1 — Diario</td>
+            <td>Tendencia macro y zonas PDH/PDL</td>
+            <td>Dirección general, objetivos lejanos</td>
+          </tr>
+          <tr>
+            <td><span class="tf-badge htf">HTF</span></td>
+            <td>H4 — 4 horas</td>
+            <td>Zonas de liquidez intermedias y estructura</td>
+            <td>Confirmación del sesgo diario</td>
+          </tr>
+          <tr>
+            <td><span class="tf-badge htf">HTF</span></td>
+            <td>H1 — 1 hora</td>
+            <td>FVG y estructura para afinar contexto</td>
+            <td>Zona de entrada potencial</td>
+          </tr>
+          <tr>
+            <td><span class="tf-badge ltf">LTF</span></td>
+            <td>m15 — 15 min</td>
+            <td>Confirmación de BOS/CHoCH</td>
+            <td>Señal de entrada próxima</td>
+          </tr>
+          <tr>
+            <td><span class="tf-badge ltf">LTF</span></td>
+            <td>m5 — 5 min</td>
+            <td>Punto exacto de entrada</td>
+            <td>FVG de entrada o vela confirmadora</td>
+          </tr>
+          <tr>
+            <td><span class="tf-badge ltf">LTF</span></td>
+            <td>m1/m2 — 1-2 min</td>
+            <td>Scalping y entradas de alta precisión</td>
+            <td>Mecha / barrido de liquidez</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- LIQUIDEZ -->
+  <section id="liquidez">
+    <div class="section-header">
+      <div class="section-icon">💧</div>
+      <h2>Tipos de Liquidez</h2>
+    </div>
+
+    <div class="terms-grid" style="margin-bottom:24px">
+      <div class="term-card">
+        <div class="term-abbr">Liquidez Externa</div>
+        <div class="term-full">External Liquidity — EXL</div>
+        <div class="term-desc">Se ubica en los <strong style="color:#fff">extremos</strong> de movimientos largos: máximos y mínimos de velas de alta temporalidad (PDH/PDL, WHH/WLL, etc.). Representa los stops acumulados de grandes grupos de traders. El mercado (Smart Money) se dirige a estos niveles para ejecutar sus órdenes y luego invertir o continuar.</div>
+        <div class="term-examples">
+          <span class="ex-tag green">PDH / PDL</span>
+          <span class="ex-tag green">WHH — Weekly High</span>
+          <span class="ex-tag green">WLL — Weekly Low</span>
+          <span class="ex-tag">Sweep de stops</span>
+        </div>
+      </div>
+      <div class="term-card">
+        <div class="term-abbr">Liquidez Interna</div>
+        <div class="term-full">Internal Liquidity — INL</div>
+        <div class="term-desc">Se ubica <strong style="color:#fff">dentro</strong> de un movimiento de precio, en los desequilibrios (FVG) e imbalances que quedaron sin cubrir. El mercado tiende a volver a rellenar estas zonas antes de continuar la tendencia. Se usa para buscar continuaciones o afinar entradas después de que el precio barrió liquidez externa.</div>
+        <div class="term-examples">
+          <span class="ex-tag">FVG — Fair Value Gap</span>
+          <span class="ex-tag">OB — Order Block</span>
+          <span class="ex-tag">Imbalance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTRATEGIA PASO A PASO -->
+  <section id="estrategia">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <h2>Estrategia de Entrada — Paso a Paso</h2>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-text">La estrategia completa combina liquidez externa en D1 para definir el objetivo, y luego baja a LTF para encontrar la confirmación exacta de entrada.</div>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-dot">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Analizar D1 — Identificar PDH y PDL</div>
+          <div class="flow-desc">Observá las 2 velas anteriores a la actual en temporalidad diaria (vela de anteayer y vela de ayer). Marcá el PDH (máximo del día previo) y el PDL (mínimo del día previo). Estos son tus niveles de liquidez externa: el PDH será objetivo si el sesgo es alcista; el PDL si es bajista.</div>
+          <div class="flow-tip">💡 Siempre trabajar con las 2 velas más recientes. El PDH de anteayer es el objetivo previo; el PDH de ayer es el objetivo actual.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-dot">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Determinar el Sesgo Direccional</div>
+          <div class="flow-desc">¿La vela de ayer renovó el PDH (cuerpo cerró por encima del máximo de anteayer)? Entonces el mercado tiene sesgo ALCISTA y el objetivo es el PDH de ayer. ¿La vela de ayer rompió el PDL? Sesgo BAJISTA, objetivo el PDL de ayer. Si la vela de ayer NO renovó ninguno de los dos extremos, el mercado está en rango.</div>
+          <div class="flow-tip">💡 Renovación = la vela cierra con CUERPO por encima/debajo del nivel (no solo la mecha).</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-dot">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Esperar la Retracción (Sweep de Liquidez)</div>
+          <div class="flow-desc">Cuando abre la vela actual (nueva vela del día), el precio suele hacer una retracción hacia el PDL de la vela anterior antes de continuar hacia el objetivo (PDH). Esta retracción perfora con la mecha el PDL barriendo los stops de los compradores tardíos. Es la "trampa" del Smart Money.</div>
+          <div class="flow-tip">💡 La mecha pinchazo = barrido de liquidez = señal de que el precio se está cargando para subir.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-dot">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Bajar a LTF — Buscar Confirmación</div>
+          <div class="flow-desc">Una vez que el precio llega a la zona de liquidez (PDL en compras), bajás a m5 o m1 para buscar una señal de reversión: un FVG alcista, un CHoCH (cambio de carácter) o un BOS (ruptura de estructura hacia arriba). La confirmación en LTF te da el punto exacto de entrada con el stop ajustado.</div>
+          <div class="flow-tip">💡 Sin confirmación en LTF, no entrés. El precio puede seguir cayendo.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-dot">5</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Ejecutar: Entrada, SL y TP</div>
+          <div class="flow-desc"><strong style="color:var(--green)">ENTRADA:</strong> al confirmar la señal en LTF (FVG o BOS alcista). <strong style="color:var(--red)">STOP LOSS:</strong> debajo del mínimo del barrido (mecha). <strong style="color:var(--green)">TAKE PROFIT:</strong> en el PDH del día anterior (objetivo de liquidez externa). Calculá el R:B antes de entrar; solo operar si es ≥ 1:1.5.</div>
+          <div class="flow-tip">💡 Si el R:B no es favorable, no es la operación correcta aunque la señal sea perfecta.</div>
+        </div>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-left">
+          <div class="flow-dot">6</div>
+        </div>
+        <div class="flow-content">
+          <div class="flow-title">Registrar en Bitácora</div>
+          <div class="flow-desc">Al cerrar la operación (ganada o perdida), registrá: fecha, activo, estrategia (MDE1 / MDE2), posición, SL en puntos, R:B, resultado, sesión (Apertura NY / Londres), imagen del trade y notas. Sin registro no hay mejora sistemática.</div>
+          <div class="flow-tip">💡 Herramienta recomendada: Notion con template GPS (como muestra el instructor en las clases).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 REGLAS -->
+  <section id="reglas">
+    <div class="section-header">
+      <div class="section-icon">📋</div>
+      <h2>Las 5 Reglas para Ser Rentable</h2>
+    </div>
+    <div class="rules-list">
+      <div class="rule-item">
+        <div class="rule-num">1</div>
+        <div class="rule-text"><strong>Sistema completo, no solo método:</strong> Tu método debe estar integrado con la gestión de riesgo y tu plan de trading. Un método sin plan es solo una táctica; necesitás un SISTEMA.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">2</div>
+        <div class="rule-text"><strong>Nunca operar sin gestión de riesgo clara:</strong> Antes de cada operación definí el % de riesgo (máx. 1-2%), el SL exacto y el TP. Si no lo tenés claro, no entrés.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">3</div>
+        <div class="rule-text"><strong>Si no registrás, no mejorás:</strong> Usá una bitácora profesional (Notion, Excel, TraderVue). Cada operación es un dato. Los patrones de tus errores solo se ven en el registro acumulado.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">4</div>
+        <div class="rule-text"><strong>Tu mente es tu mayor aliado:</strong> Gestioná tus emociones o te dominan. Miedo, codicia y revenge trading son los principales destructores de cuentas. Si estás alterado, no operés.</div>
+      </div>
+      <div class="rule-item">
+        <div class="rule-num">5</div>
+        <div class="rule-text"><strong>La consistencia es reina:</strong> Sin consistencia no hay rentabilidad, sin rentabilidad no hay fondeo. Una semana ganadora no es consistencia. 3 meses con resultados positivos regulares, sí lo son.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSISTENCIA -->
+  <section id="consistencia">
+    <div class="section-header">
+      <div class="section-icon">🔁</div>
+      <h2>Cómo Conseguir Consistencia</h2>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-text">Consistencia es repetir un proceso correcto suficientes veces hasta que los resultados se vuelvan inevitables.</div>
+      <div class="quote-author">— Martín Morales · Semana del Inversionista</div>
+    </div>
+
+    <div class="consist-cards">
+      <div class="consist-card">
+        <div class="consist-icon">📝</div>
+        <div class="consist-title">Escribí tus metas y plan</div>
+        <div class="consist-desc">Un estudio de Michigan State University demostró que quienes escriben sus metas y reportan progreso tienen 76% de tasa de éxito vs 43% de quienes no lo hacen.</div>
+      </div>
+      <div class="consist-card">
+        <div class="consist-icon">🎯</div>
+        <div class="consist-title">Reto de Consistencia</div>
+        <div class="consist-desc">Comprometete a operar en demo durante 30 días siguiendo siempre el mismo proceso: análisis HTF → confirmación LTF → registro. Solo pasá a real cuando tengas resultados consistentes en demo.</div>
+      </div>
+      <div class="consist-card">
+        <div class="consist-icon">📊</div>
+        <div class="consist-title">Bitácora Diaria</div>
+        <div class="consist-desc">Registrá TODAS las operaciones, incluso las que no tomaste. Anotá por qué entraste o no. Revisá semanalmente para identificar patrones de error y mejoras.</div>
+      </div>
+      <div class="consist-card">
+        <div class="consist-icon">🏦</div>
+        <div class="consist-title">Camino al Fondeo</div>
+        <div class="consist-desc">Consistencia → Rentabilidad → Fondeo. Con $50 podés acceder a cuentas fondeadas de $50.000 USD. El 90% de las ganancias son tuyas. El fondeo es el multiplicador, pero requiere demostrar consistencia primero.</div>
+      </div>
+      <div class="consist-card">
+        <div class="consist-icon">🧘</div>
+        <div class="consist-title">Gestión Emocional</div>
+        <div class="consist-desc">Establecé reglas irrompibles: máximo de operaciones por día, máximo de pérdida diaria (drawdown). Si alcanzás el límite, cerrá la plataforma. La disciplina protege tu capital cuando las emociones atacan.</div>
+      </div>
+      <div class="consist-card">
+        <div class="consist-icon">⏰</div>
+        <div class="consist-title">Sesiones de Mercado</div>
+        <div class="consist-desc">Las mejores oportunidades aparecen en la apertura de Nueva York (NY Open, ~9:30 AM EST) y en la sesión de Londres. Operá en horarios de alta liquidez; evitá los mercados muertos o fines de semana.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOSARIO COMPLETO -->
+  <section id="glosario">
+    <div class="section-header">
+      <div class="section-icon">📖</div>
+      <h2>Glosario Completo</h2>
+    </div>
+    <div class="glos-grid">
+      <div class="glos-card">
+        <div class="glos-term">Order Block (OB)</div>
+        <div class="glos-desc">Última vela contraria antes de un movimiento impulsivo institucional. Zona donde el Smart Money dejó órdenes sin ejecutar. El precio vuelve para completarlas. Es una forma de liquidez interna potente.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Smart Money / ICT</div>
+        <div class="glos-desc">Grandes participantes del mercado (bancos, fondos de inversión, instituciones) que mueven el precio. El trading moderno busca seguir sus huellas en el precio. ICT (Inner Circle Trader) es la metodología que popularizó estos conceptos.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Sweep / Barrido</div>
+        <div class="glos-desc">Movimiento rápido del precio que perfora un nivel de liquidez (PDH/PDL) con la mecha de una vela para activar stops, y luego invierte. Es la "trampa" que confirma el verdadero movimiento venidero.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">WHH / WLL</div>
+        <div class="glos-desc">Weekly High/Low: máximo y mínimo de la semana previa. Equivalente al PDH/PDL pero en marco semanal. Funciona como liquidez externa de mayor peso y objetivos más lejanos.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Mitigation Block</div>
+        <div class="glos-desc">Zona donde el precio regresa para "mitigar" o rellenar órdenes institucionales no ejecutadas. Similar al Order Block pero tras un fracaso de estructura previo.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Confluencia</div>
+        <div class="glos-desc">Superposición de múltiples señales en la misma zona de precio: FVG + PDL + Order Block en el mismo nivel aumenta significativamente la probabilidad de la operación.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">MAE / MFE</div>
+        <div class="glos-desc">Maximum Adverse Excursion / Maximum Favorable Excursion. El máximo que fue en tu contra vs. el máximo que fue a tu favor antes de cerrar. Dato clave para optimizar stops y targets.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Drawdown</div>
+        <div class="glos-desc">Caída del capital desde un máximo previo. Las empresas de fondeo suelen limitar el drawdown diario (p.ej. 5%) y total (p.ej. 10%). Superar ese límite = perder la cuenta. Por eso la gestión de riesgo es crítica.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Demo / Prop Firm</div>
+        <div class="glos-desc"><strong>Demo:</strong> cuenta simulada para practicar sin riesgo real. <strong>Prop Firm (Empresa de Fondeo):</strong> empresa que presta capital al trader tras pasar una evaluación. Con $50 de fee podés operar $50.000 reales y quedarte el 80-90% de ganancias.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Sesión NY / Londres</div>
+        <div class="glos-desc">Las 2 sesiones con mayor volumen y movimiento. <strong>Londres:</strong> 3-12 AM EST. <strong>Nueva York:</strong> 8 AM - 5 PM EST. El "NY Open" (apertura de Wall Street) es el momento de mayor volatilidad del día en Forex y Futuros.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Estructura Alcista</div>
+        <div class="glos-desc">Secuencia de máximos y mínimos crecientes: cada nuevo máximo supera al anterior y cada nuevo mínimo es más alto que el previo (Higher Highs + Higher Lows). Confirma tendencia alcista.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Estructura Bajista</div>
+        <div class="glos-desc">Secuencia de máximos y mínimos decrecientes: Lower Highs + Lower Lows. Cada máximo es menor y cada mínimo también. Confirma tendencia bajista.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Estructura Lateral / Rango</div>
+        <div class="glos-desc">El precio oscila entre un máximo y un mínimo sin definir tendencia clara. Se opera comprando en el mínimo del rango (PDL) y vendiendo en el máximo (PDH) con objetivos cortos.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Apertura NY (NY Open)</div>
+        <div class="glos-desc">Las primeras horas de la sesión de Nueva York (~9:30 AM EST / ~13:30 UTC). Coincide con la publicación de datos económicos y es el momento de mayor volumen y oportunidades en Forex, Futuros y Indices.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Micro-contratos</div>
+        <div class="glos-desc">Versiones reducidas de contratos de futuros (Micro NASDAQ, Micro SP500, etc.). Permiten operar futuros con capital pequeño, con spreads bajos y sin pagar swap. Usados en la operativa del método.</div>
+      </div>
+      <div class="glos-card">
+        <div class="glos-term">Broker / Exness</div>
+        <div class="glos-desc">Plataforma intermediaria que permite ejecutar operaciones. Exness y Tradovate/Ninja son los brokers mencionados en las clases. La elección del broker afecta spreads, velocidad de ejecución y regulación.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Active pill on scroll
+  const sections = document.querySelectorAll('section');
+  const pills = document.querySelectorAll('.pill');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        pills.forEach(p => {
+          p.classList.toggle('active', p.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
